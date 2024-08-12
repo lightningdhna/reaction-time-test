@@ -1,37 +1,37 @@
 let startTime;
-let reactionTimes = [];
+let totalTime = 0;
+let counter = 0.0;
 
 const reactionTest = document.getElementById('reaction-test');
-const message = document.getElementById('message');
 const reactionTimeDisplay = document.getElementById('reaction-time');
 const averageTimeDisplay = document.getElementById('average-time');
-
 function getRandomTime() {
     return Math.floor(Math.random() * 6000) + 1000; // Random time between 2 to 7 seconds
 }
 
-function startTest() {
-    reactionTest.style.backgroundColor = 'red';
-    message.textContent = 'Wait for green...';
+async function startTest() {
     // reactionTimeDisplay.textContent = '';
     setTimeout(() => {
         reactionTest.style.backgroundColor = 'green';
-        message.textContent = 'Click!';
-        startTime = new Date().getTime();
+        startTime = performance.now();
     }, getRandomTime());
 }
 
-reactionTest.addEventListener('click', () => {
+reactionTest.addEventListener('mousedown',async () => {
     if (reactionTest.style.backgroundColor === 'green') {
-        const endTime = new Date().getTime();
-        const reactionTime = endTime - startTime;
-        reactionTimes.push(reactionTime);
-        const averageTime = reactionTimes.reduce((a, b) => a + b, 0) / reactionTimes.length;
+        reactionTest.style.backgroundColor = 'red';
 
-        reactionTimeDisplay.textContent = `Reaction Time: ${reactionTime} ms`;
-        averageTimeDisplay.textContent = `Average Time: ${averageTime.toFixed(2)} ms`;
+        const endTime = performance.now();
+        const reactionTime = endTime - startTime;
+        totalTime += reactionTime;
+        counter += 1.0;
 
         startTest();
+
+
+        reactionTimeDisplay.textContent = `Reaction Time: ${reactionTime.toFixed(2)} ms`;
+        averageTimeDisplay.textContent = `Average Time: ${(totalTime / counter).toFixed(2)} ms`;
+
     }
 });
 
