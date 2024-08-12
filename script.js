@@ -6,7 +6,7 @@ const reactionTest = document.getElementById('reaction-test');
 const reactionTimeDisplay = document.getElementById('reaction-time');
 const averageTimeDisplay = document.getElementById('average-time');
 function getRandomTime() {
-    return Math.floor(Math.random() * 6000) + 1000; // Random time between 2 to 7 seconds
+    return Math.floor(Math.random() * 8000) + 1000; // Random time between 2 to 7 seconds
 }
 
 async function startTest() {
@@ -17,7 +17,7 @@ async function startTest() {
     }, getRandomTime());
 }
 
-reactionTest.addEventListener('mousedown',async () => {
+async function handleClick() {
     if (reactionTest.style.backgroundColor === 'green') {
         reactionTest.style.backgroundColor = 'red';
 
@@ -33,6 +33,9 @@ reactionTest.addEventListener('mousedown',async () => {
         averageTimeDisplay.textContent = `Average Time: ${(totalTime / counter).toFixed(2)} ms`;
 
     }
-});
+}
+
+reactionTest.addEventListener('touchstart', handleClick);
+reactionTest.addEventListener('mousedown', handleClick);
 
 startTest();
