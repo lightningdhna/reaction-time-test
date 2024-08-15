@@ -7,7 +7,7 @@ const reactionTimeDisplay = document.getElementById("reaction-time");
 const averageTimeDisplay = document.getElementById("average-time");
 const versionDisplay = document.getElementById("version");
 
-const version = "15/8.1"; // Define the version here
+const version = "15/8.2"; // Define the version here
 
 function getRandomTime() {
   return Math.floor(Math.random() * 8000) + 1000; // Random time between 2 to 7 seconds
@@ -18,7 +18,7 @@ function startTest() {
   setTimeout(() => {
     reactionTest.style.backgroundColor = "green";
     startTime = performance.now();
-    if (navigator.vibrate && isMobileDevice()) {
+    if (navigator.vibrate) {
       navigator.vibrate(200);
       reactionTest.style.backgroundColor = "black";
     } else {
