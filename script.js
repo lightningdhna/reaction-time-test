@@ -14,6 +14,10 @@ async function startTest() {
     setTimeout(() => {
         reactionTest.style.backgroundColor = 'green';
         startTime = performance.now();
+        if (navigator.vibrate) {
+            navigator.vibrate(200);
+        }
+
     }, getRandomTime());
 }
 
@@ -37,5 +41,7 @@ async function handleClick() {
 
 reactionTest.addEventListener('touchstart', handleClick);
 reactionTest.addEventListener('mousedown', handleClick);
+document.addEventListener('keydown', handleClick);
+
 
 startTest();
